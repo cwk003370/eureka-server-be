@@ -1,11 +1,35 @@
 spring:
   application:
     name: eureka-server
+---
+spring:
+  profiles: dev1
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:11201/eureka/
+server:
+  port: 11101
+---
+spring:
+  profiles: dev2
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:11101/eureka/
+server:
+  port: 11201
+---
+spring:
+  profiles: dev3
 eureka:
   instance:
     hostname: localhost
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: false #是否将自己注册到注册中心
+    fetch-registry: false #是否从eureka中获取注册信息
+  server:
+    enable-self-preservation: false #关闭自我保护
+    eviction-interval-timer-in-ms: 4000 #剔除时间间隔,单位:毫秒
 server:
-  port: 1001
+  port: 11001
